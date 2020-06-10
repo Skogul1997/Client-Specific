@@ -1,0 +1,6 @@
+kogul.py
+__pycache__
+.vscode
+env
+venv
+test.http
