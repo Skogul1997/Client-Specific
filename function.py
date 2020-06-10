@@ -52,7 +52,7 @@ def get_result(dat):
         )
         mycursor = mydb.cursor()
         if plag_result['status'] != "Fail":
-            sql = "UPDATE assignments SET report_url = %s WHERE assignment_id = %s"
+            sql = "UPDATE assignments SET report_url = %s, status = 2 WHERE assignment_id = %s"
             mycursor.execute(sql, (plag_result['detailed_report_url'],int(dat['assignment_id']),))
             for key in plag_result['results'].keys():
                 if int(plag_result['results'][key]) >= threshold:
@@ -70,3 +70,6 @@ def get_result(dat):
 
             mycursor.close()
             mydb.close()
+        else:
+            sql = "UPDATE assignments SET status = 0 WHERE assignment_id = %s"
+            mycursor.execute(sql, (int(dat['assignment_id']),))
