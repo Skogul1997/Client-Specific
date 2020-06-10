@@ -5,13 +5,13 @@ import os
 
 def get_result(dat):
     def get_plag(data,arr):
-        plag_results = requests.post("https://plagiarism-api.azurewebsites.net/result", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="}).json()
-        # plag_results = plag_results.json()
+        plag_results = requests.post("https://plagiarism-api.azurewebsites.net/result", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="})
+        plag_results = plag_results.json()
         arr.append(plag_results)
 
     def get_grad(data,arr):
-        grad_results = requests.post("https://grading-api.azurewebsites.net/grade", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="}).json()
-        # grad_results = grad_results.json()
+        grad_results = requests.post("https://grading-api.azurewebsites.net/grade", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="})
+        grad_results = grad_results.json()
         arr.append(grad_results)
 
     plag_arr = []
