@@ -15,7 +15,7 @@ class getResult(Resource):
 
     def post(self):
         json_object = request.get_json()
-        result = q.enqueue(get_result, args= (json_object,), timeout = 500)
+        result = q.enqueue(get_result, args= (json_object,))
         return {'status': 'Success'},200
 
 api.add_resource(getResult, '/result')
