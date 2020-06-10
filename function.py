@@ -17,7 +17,7 @@ def get_result(dat):
     plag_arr = []
     grad_arr = []
     lang = dat['lang']
-    if lang="c++":
+    if lang=="c++":
         lang = "cc"
     plag = {
         'lang': lang,
