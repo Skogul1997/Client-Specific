@@ -60,16 +60,26 @@ def get_result(dat):
                     sql = "UPDATE submissions SET grade = 0, plag = Yes WHERE student_id = %s"
                     mycursor.execute(sql, (key,))
             # mydb.commit()
-            for key in grad_result.keys():
-                if key not in plagiarized:
-                    grade = int(round(grad_result[key]/n,2)*100) 
-                    sql = "UPDATE submissions SET grade = %s WHERE student_id = %s"
-                    mycursor.execute(sql, (grade, key,))
+            # for key in grad_result.keys():
+            #     if key not in plagiarized:
+            #         grade = int(round(grad_result[key]/n,2)*100) 
+            #         sql = "UPDATE submissions SET grade = %s WHERE student_id = %s"
+            #         mycursor.execute(sql, (grade, key,))
 
-            mydb.commit()
+            # mydb.commit()
 
-            mycursor.close()
-            mydb.close()
+            # mycursor.close()
+            # mydb.close()
         else:
             sql = "UPDATE assignments SET status = 0 WHERE assignment_id = %s"
             mycursor.execute(sql, (int(dat['assignment_id']),))
+
+        for key in grad_result.keys():
+            grade = int(round(grad_result[key]/n,2)*100) 
+            sql = "UPDATE submissions SET grade = %s WHERE student_id = %s"
+            mycursor.execute(sql, (grade, key,))
+
+        mydb.commit()
+
+        mycursor.close()
+        mydb.close()
