@@ -4,7 +4,7 @@ from rq import Queue
 from worker import conn
 from function import get_result
 
-q = Queue(connection=conn)
+q = Queue(connection=conn, default_timeout=3600)
 
 
 
