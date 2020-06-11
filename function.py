@@ -57,7 +57,7 @@ def get_result(dat):
             for key in plag_result['results'].keys():
                 if int(plag_result['results'][key]) >= threshold:
                     plagiarized.append(key)
-                    sql = "UPDATE submissions SET grade = 0, plag = Yes WHERE assignment_id = %s AND student_id = %s"
+                    sql = "UPDATE submissions SET grade = 0, plag = 'Yes' WHERE assignment_id = %s AND student_id = %s"
                     mycursor.execute(sql, (int(dat['assignment_id']),key,))
             # mydb.commit()
             # for key in grad_result.keys():
