@@ -6,13 +6,15 @@ import os
 def get_result(dat):
     def get_plag(data,arr):
         plag_results = requests.post("https://plagiarism-api.azurewebsites.net/result", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="})
-        plag_results = plag_results.json()
-        arr.append(plag_results)
+        if plag_results:
+            plag_results = plag_results.json()
+            arr.append(plag_results)
 
     def get_grad(data,arr):
         grad_results = requests.post("https://grading-api.azurewebsites.net/grade", json = data, headers = {"Authorization": "Basic a29ndWw6a29ndWwxNw=="})
-        grad_results = grad_results.json()
-        arr.append(grad_results)
+        if grad_results:
+            grad_results = grad_results.json()
+            arr.append(grad_results)
 
     plag_arr = []
     grad_arr = []
@@ -75,9 +77,10 @@ def get_result(dat):
             mycursor.execute(sql, (int(dat['assignment_id']),))
 
         for key in grad_result.keys():
-            grade = int(round(grad_result[key]/n,2)*100) 
-            sql = "UPDATE submissions SET grade = %s WHERE assignment_id = %s AND student_id = %s"
-            mycursor.execute(sql, (grade, int(dat['assignment_id']), key,))
+            if key not in plagiarized:
+                grade = int(round(grad_result[key]/n,2)*100) 
+                sql = "UPDATE submissions SET grade = %s WHERE assignment_id = %s AND student_id = %s"
+                mycursor.execute(sql, (grade, int(dat['assignment_id']), key,))
 
         mydb.commit()
 
